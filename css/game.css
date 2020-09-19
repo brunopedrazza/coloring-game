@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.header {
+    padding-top: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+.page {
+    margin: auto;
+    width: 500px;
+}
+
+.table-container {
+    text-align: center;
+}
+
+.table {
+    display: inline-block;
+    padding-top: 20px;
+}
+
+.color-table {
+    float: left;
+    padding-top: 16px;
+    margin-bottom: 40px;
+    border: none;
+}
+
+.cel {
+    font-family: "HelveticaNeue-CondensedBold";
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+    outline: none;
+    float: left;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
+
+.color-cel {
+    border: none;
+    outline: none;
+    float: left;
+    height: 35px;
+    width: 50px;
+}
+
+.divisor {
+    clear: both;
+}
+
+.button {
+    background-color: rgb(168, 191, 87);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
