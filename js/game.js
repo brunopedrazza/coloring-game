@@ -5,6 +5,20 @@ onload = function() {
     var colors = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
     var table = document.getElementById('table')
     var colorTable = document.getElementById('color-table')
+
+    createGameTable(table, dimension)
+    createColorOptionsTable(colorTable, colors)
+    
+    // create restart button
+    var restartButton = document.createElement('button')
+    restartButton.className = 'restart-cel'
+    restartText = document.createTextNode('reset')
+    restartButton.appendChild(restartText)
+    restartButton.addEventListener('click', onRestartClick)
+    colorTable.appendChild(restartButton)
+}
+
+function createGameTable(table, dimension) {
     for (var line = 0; line < dimension; line++) {
         for (var column = 0; column < dimension; column++) {
             var square = (10*line + column + 1).toString() 
@@ -21,7 +35,9 @@ onload = function() {
         divisor.className = 'divisor'
         table.appendChild(divisor)
     }
+}
 
+function createColorOptionsTable(colorTable, colors) {
     for (var line = 0; line < colors.length; line++) {
         var colorSquare = colors[line] 
         var cel = document.createElement('button')
@@ -49,7 +65,7 @@ function onColorClick(e) {
     color = e.target.id
 }
 
-function restart() {
+function onRestartClick() {
     var table = document.getElementById('table')
     var child = table.firstChild
     while (child != null) {
