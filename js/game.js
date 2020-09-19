@@ -44,7 +44,7 @@ function createRestartButton() {
     var colorTable = document.getElementById('color-table')
     var restartButton = document.createElement('button')
     restartButton.className = 'restart-cel'
-    restartText = document.createTextNode('reset')
+    restartText = document.createTextNode('reiniciar')
     restartButton.appendChild(restartText)
     restartButton.addEventListener('click', onRestartClick)
     colorTable.appendChild(restartButton)
