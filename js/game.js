@@ -63,20 +63,27 @@ function onNumberClick(e) {
 
 function onColorClick(e) {
     var parent = e.target.parentNode
-    var child = parent.firstChild
-    while (child != null) {
-        child.classList.remove('color-cel-selected')
-        child = child.nextSibling
-    }
+    unselectAllColors(parent)
     e.target.classList.add('color-cel-selected')
     currentColor = e.target.id
 }
 
-function onRestartClick() {
+function onRestartClick(e) {
+    var parent = e.target.parentNode
+    unselectAllColors(parent)
+    currentColor = 'white'
     var table = document.getElementById('table')
     var child = table.firstChild
     while (child != null) {
         child.style.backgroundColor = 'white'
+        child = child.nextSibling
+    }
+}
+
+function unselectAllColors(colorTableNode) {
+    var child = colorTableNode.firstChild
+    while (child != null) {
+        child.classList.remove('color-cel-selected')
         child = child.nextSibling
     }
 }
