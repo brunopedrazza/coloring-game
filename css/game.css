@@ -50,6 +50,14 @@
     width: 50px;
 }
 
+.restart-cel {
+    border: none;
+    outline: none;
+    float: left;
+    height: 35px;
+    width: 50px;
+}
+
 .divisor {
     clear: both;
 }
