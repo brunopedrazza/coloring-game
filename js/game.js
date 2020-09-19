@@ -1,30 +1,22 @@
-var color = 'white'
+let currentColor = 'white'
 
 onload = function() {
-    var dimension = 10
-    var colors = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
-    var table = document.getElementById('table')
-    var colorTable = document.getElementById('color-table')
-
-    createGameTable(table, dimension)
-    createColorOptionsTable(colorTable, colors)
+    const dimension = 10
+    const colorOptions = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
     
-    // create restart button
-    var restartButton = document.createElement('button')
-    restartButton.className = 'restart-cel'
-    restartText = document.createTextNode('reset')
-    restartButton.appendChild(restartText)
-    restartButton.addEventListener('click', onRestartClick)
-    colorTable.appendChild(restartButton)
+    createGameTable(dimension)
+    createColorOptionsTable(colorOptions)
+    createRestartButton()
 }
 
-function createGameTable(table, dimension) {
+function createGameTable(dimension) {
+    var table = document.getElementById('table')
     for (var line = 0; line < dimension; line++) {
         for (var column = 0; column < dimension; column++) {
             var square = (10*line + column + 1).toString() 
             var cel = document.createElement('button')
             cel.className = 'cel'
-            cel.id = color
+            cel.id = currentColor
             cel.style.fontSize = '24px'
             cel.addEventListener('click', onNumberClick)
             number = document.createTextNode(square)
@@ -37,32 +29,48 @@ function createGameTable(table, dimension) {
     }
 }
 
-function createColorOptionsTable(colorTable, colors) {
-    for (var line = 0; line < colors.length; line++) {
-        var colorSquare = colors[line] 
-        var cel = document.createElement('button')
-        cel.id = colorSquare
-        cel.className = 'color-cel'
-        cel.style.backgroundColor = colorSquare
-        cel.addEventListener('click', onColorClick)
-        colorTable.appendChild(cel)
+function createColorOptionsTable(colorOptions) {
+    var colorTable = document.getElementById('color-table')
+    for (const colorOption of colorOptions) {
+        var option = document.createElement('button')
+        option.id = colorOption
+        option.className = 'color-cel'
+        option.style.backgroundColor = colorOption
+        option.addEventListener('click', onColorClick)
+        colorTable.appendChild(option)
     }
+}
+
+function createRestartButton() {
+    var colorTable = document.getElementById('color-table')
+    var restartButton = document.createElement('button')
+    restartButton.className = 'restart-cel'
+    restartText = document.createTextNode('reset')
+    restartButton.appendChild(restartText)
+    restartButton.addEventListener('click', onRestartClick)
+    colorTable.appendChild(restartButton)
 }
 
 function onNumberClick(e) {
     var cel = e.target
-    if (cel.id == color) {
+    if (cel.id == currentColor) {
         cel.style.backgroundColor = 'white'
         cel.id = 'white'
-    }
-    else {
-        cel.style.backgroundColor = color
-        cel.id = color
+    }else {
+        cel.style.backgroundColor = currentColor
+        cel.id = currentColor
     }
 }
 
 function onColorClick(e) {
-    color = e.target.id
+    var parent = e.target.parentNode
+    var child = parent.firstChild
+    while (child != null) {
+        child.classList.remove('color-cel-selected')
+        child = child.nextSibling
+    }
+    e.target.classList.add('color-cel-selected')
+    currentColor = e.target.id
 }
 
 function onRestartClick() {
