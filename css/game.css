@@ -50,6 +50,10 @@
     width: 50px;
 }
 
+.color-cel-selected {
+    border-radius: 25%;
+}
+
 .restart-cel {
     border: none;
     outline: none;
