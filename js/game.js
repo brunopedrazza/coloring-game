@@ -17,7 +17,6 @@ function createGameTable(dimension) {
             var cel = document.createElement('button')
             cel.className = 'cel'
             cel.id = currentColor
-            cel.style.fontSize = '24px'
             cel.addEventListener('click', onNumberClick)
             number = document.createTextNode(square)
             cel.appendChild(number)
