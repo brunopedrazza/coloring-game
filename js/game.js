@@ -1,22 +1,22 @@
-let currentColor = 'white'
+let white = '#ffffff'
+let currentColor = white
 
-onload = function() {
-    const dimension = 10
-    const colorOptions = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
-    
-    createGameTable(dimension)
-    createColorOptionsTable(colorOptions)
-    createRestartButton()
-}
+const dimension = 10
+const colorOptions = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
+
+createGameTable(dimension)
+createColorOptionsTable(colorOptions)
+createRestartButton()
 
 function createGameTable(dimension) {
     var table = document.getElementById('table')
     for (var line = 0; line < dimension; line++) {
         for (var column = 0; column < dimension; column++) {
-            var square = (10*line + column + 1).toString() 
+            var square = (10 * line + column + 1).toString()
             var cel = document.createElement('button')
             cel.className = 'cel'
-            cel.id = currentColor
+            cel.id = square
+            cel.style.backgroundColor = currentColor
             cel.addEventListener('click', onNumberClick)
             number = document.createTextNode(square)
             cel.appendChild(number)
@@ -52,12 +52,11 @@ function createRestartButton() {
 
 function onNumberClick(e) {
     var cel = e.target
-    if (cel.id == currentColor) {
-        cel.style.backgroundColor = 'white'
-        cel.id = 'white'
-    }else {
+    let backgroundColor = rgb2hex(cel.style.backgroundColor)
+    if (backgroundColor == currentColor) {
+        cel.style.backgroundColor = white
+    } else {
         cel.style.backgroundColor = currentColor
-        cel.id = currentColor
     }
 }
 
@@ -71,19 +70,33 @@ function onColorClick(e) {
 function onRestartClick(e) {
     var parent = e.target.parentNode
     unselectAllColors(parent)
-    currentColor = 'white'
+    currentColor = white
     var table = document.getElementById('table')
     var child = table.firstChild
-    while (child != null) {
-        child.style.backgroundColor = 'white'
+    while (child) {
+        child.style.backgroundColor = white
         child = child.nextSibling
     }
 }
 
 function unselectAllColors(colorTableNode) {
     var child = colorTableNode.firstChild
-    while (child != null) {
+    while (child) {
         child.classList.remove('color-cel-selected')
         child = child.nextSibling
     }
+}
+
+//Helpers
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+var hexDigits = new Array
+    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+
+function hex(x) {
+    return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
 }
