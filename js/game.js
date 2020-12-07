@@ -1,6 +1,17 @@
 let white = '#ffffff'
 let currentColor = white
 
+let isErasing = false
+
+var mouseDown = false
+document.body.onmousedown = function () {
+    mouseDown = true
+}
+document.body.onmouseup = function () {
+    mouseDown = false
+    isErasing = false
+}
+
 const dimension = 10
 const colorOptions = ['#ffce00', '#008cff', '#f48058', '#ffab8a']
 
@@ -17,7 +28,8 @@ function createGameTable(dimension) {
             cel.className = 'cel'
             cel.id = square
             cel.style.backgroundColor = currentColor
-            cel.addEventListener('click', onNumberClick)
+            cel.addEventListener('mouseover', onCelMouseOver)
+            cel.addEventListener('mousedown', onCelMouseDown)
             number = document.createTextNode(square)
             cel.appendChild(number)
             table.appendChild(cel)
@@ -50,13 +62,24 @@ function createRestartButton() {
     colorTable.appendChild(restartButton)
 }
 
-function onNumberClick(e) {
-    var cel = e.target
+function onCelMouseOver(e) {
+    if (mouseDown) {
+        changeCelColor(e.target);
+    }
+}
+
+function onCelMouseDown(e) {
+    changeCelColor(e.target)
+}
+
+function changeCelColor(cel) {
     let backgroundColor = rgb2hex(cel.style.backgroundColor)
-    if (backgroundColor == currentColor) {
+    if (backgroundColor == currentColor && !mouseDown || isErasing) {
         cel.style.backgroundColor = white
+        isErasing = true
     } else {
         cel.style.backgroundColor = currentColor
+        isErasing = false
     }
 }
 
